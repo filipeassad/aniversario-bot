@@ -16,8 +16,15 @@ if (fs.existsSync(configPath)) {
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox']
-    }
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-dev-shm-usage',
+            '--disable-gpu'
+        ]
+    },
+    takeoverOnConflict: true,
+    takeoverTimeoutMs: 60000
 });
 
 // Evento: QR Code
@@ -89,7 +96,7 @@ client.on('message', async (msg) => {
 
         let reply = '📋 *Lista de Aniversariante:* \n\n';
         allBirthdays.sort((a, b) => a.nome.localeCompare(b.nome)).forEach(b => {
-          reply += `- *${b.nome}* (${dateUtils.formatToDayMonth(b.data_aniversario)})\n`;
+            reply += `- *${b.nome}* (${dateUtils.formatToDayMonth(b.data_aniversario)})\n`;
         });
         msg.reply(reply);
     }
