@@ -7,7 +7,7 @@ const { client, sendBirthdayNotification } = require('./bot/whatsapp');
 const birthdayRoutes = require('./routes/birthday.routes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3450;
 
 // Configuração
 let config = {};
@@ -40,7 +40,7 @@ cron.schedule('0 9 * * *', async () => {
 // Inicia servidor e cliente de WhatsApp
 app.listen(PORT, async () => {
     console.log(`🚀 API escutando na porta ${PORT}`);
-    
+
     // Inicia cliente do WhatsApp
     client.initialize();
 });
